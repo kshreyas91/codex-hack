@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<meta name="author" content="" />
+	<meta name="Resource-type" content="Document" />
+	<meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="js/snap.svg.js"></script>
+	<style type="text/css">
+	body, html{
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		text-align: center;
+	}
+	.bodypart{
+		fill:rgba(100,100,100,0.5);
+	}
+	.joint{
+		fill:rgba(255,0,0,0.5);
+	}
+	.test{
+		fill:blue;
+	}
+	</style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+window.onload = function(){
+
+	var s = Snap (500, 500);
+
+	Snap.load("img/full_body.svg", function(f){
+		var lefthand = f.select("#lefthand")
+		var righthand = f.select("#right_hand");
+		var torso = f.select("#torso");
+		var leftleg = f.select("#leftleg")
+		var rightleg = f.select("#rightleg");
+		var face = f.select("#face");
+		var leftarm = f.select("#leftarm")
+		var rightarm = f.select("#rightarm");
+
+		s.add(f.select("g"));
+	});
+}
+</script>
+</body>
+</html>
