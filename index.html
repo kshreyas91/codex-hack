@@ -8,26 +8,31 @@
 	<meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
-	<link rel="stylesheet" type="text/css" href="css/main.css" />
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
     <script src="js/snap.svg.js"></script>
 	<style type="text/css">
 	body, html{
-		margin: 0;
+		margin: 50px;
 		padding: 0;
 		width: 100%;
-		text-align: center;
+		/*text-align: center;*/
 	}
-	.bodypart{
+
+/*	.bodypart{
 		fill:rgba(100,100,100,0.5);
-	}
+	}*/
 	.joint{
 		fill:rgba(255,0,0,0.5);
 	}
 	.test{
 		fill:blue;
+	}
+	svg{
+		border: solid black 1px;
+		position: absolute;
+		/*left: 50%;*/
 	}
 	</style>
 </head>
@@ -37,19 +42,19 @@
 
 window.onload = function(){
 
-	var s = Snap (500, 500);
+	var s = Snap (1000, 1000);
 
 	Snap.load("img/full_body.svg", function(f){
-		var lefthand = f.select("#lefthand")
-		var righthand = f.select("#right_hand");
-		var torso = f.select("#torso");
-		var leftleg = f.select("#leftleg")
-		var rightleg = f.select("#rightleg");
-		var face = f.select("#face");
-		var leftarm = f.select("#leftarm")
-		var rightarm = f.select("#rightarm");
+		var leftarm = f.select("#left_arm .bodypart");
+		var leftarm_Joint_shoulder = f.select("#left_arm #joint_arm_left_shoulder");
+		leftarm.attr({fill: '#00ff00'});
 
-		s.add(f.select("g"));
+		leftarm.animate({transform: 'rotate(30 46.8 186.3)'}, 500);
+		// leftarm.animate({transform: 'rotate(30' + leftarm_Joint_shoulder.attr("cx") + ' ' + leftarm_Joint_shoulder.attr("cy") + ')'}, 1000);
+
+		s.append(f.select("g"));
+
+
 	});
 }
 </script>
