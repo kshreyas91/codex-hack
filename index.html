@@ -17,7 +17,6 @@
 		margin: 50px;
 		padding: 0;
 		width: 100%;
-		/*text-align: center;*/
 	}
 
 /*	.bodypart{
@@ -45,16 +44,25 @@ window.onload = function(){
 	var s = Snap (1000, 1000);
 
 	Snap.load("img/full_body.svg", function(f){
-		var leftarm = f.select("#left_arm .bodypart");
-		var leftarm_Joint_shoulder = f.select("#left_arm #joint_arm_left_shoulder");
-		leftarm.attr({fill: '#00ff00'});
+		var face = f.select("#face .bodypart");
+		var face_Joint_neck = f.select("#joint_torso_neck");
+		face.attr({fill: '#00ff00'});
 
-		leftarm.animate({transform: 'rotate(30 46.8 186.3)'}, 500);
-		// leftarm.animate({transform: 'rotate(30' + leftarm_Joint_shoulder.attr("cx") + ' ' + leftarm_Joint_shoulder.attr("cy") + ')'}, 1000);
+
+		// leftarm.animate({transform: 'rotate(30 46.8 186.3)'}, 500);
+
+		// face.animate({transform: 'rotate(30' + ' ' + face_Joint_neck.attr("cx") + ' ' + face_Joint_neck.attr("cy") + ')'}, 1000);
 
 		s.append(f.select("g"));
 
 
+
+
+		function shakeNeck(part, joint, deg, duration){
+			face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration);
+		}
+
+		shakeNeck(face, face_Joint_neck, 30, 1000);
 	});
 }
 </script>
