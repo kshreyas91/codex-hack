@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="eng">
 <head>
@@ -67,4 +68,78 @@ window.onload = function(){
 }
 </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<meta name="author" content="" />
+	<meta name="Resource-type" content="Document" />
+	<meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="js/snap.svg.js"></script>
+	<style type="text/css">
+	body, html{
+		margin: 50px;
+		padding: 0;
+		width: 100%;
+	}
+/*	.bodypart{
+		fill:rgba(100,100,100,0.5);
+	}*/
+	.joint{
+		fill:rgba(255,0,0,0.5);
+	}
+	.test{
+		fill:blue;
+	}
+	svg{
+		border: solid black 1px;
+		position: absolute;
+		/*left: 50%;*/
+	}
+	</style>
+</head>
+<body>
+
+<script type="text/javascript">
+window.onload = function(){
+	var s = Snap (1000, 1000);
+	Snap.load("img/full_body.svg", function(f){
+		var face = f.select("#face .bodypart");
+		var face_Joint_neck = f.select("#joint_torso_neck");
+		face.attr({fill: '#00ff00'});
+		// leftarm.animate({transform: 'rotate(30 46.8 186.3)'}, 500);
+		// face.animate({transform: 'rotate(30' + ' ' + face_Joint_neck.attr("cx") + ' ' + face_Joint_neck.attr("cy") + ')'}, 1000);
+		s.append(f.select("g"));
+		function shakeNeckForth(part, joint, deg, duration){
+             var dig = 0 - deg;
+		var anim = function(){
+            face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration,mina.linear,anim1);
+        }
+
+            
+             
+          var anim1 = function(){  face.animate({transform: 'rotate(' + dig + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration); }
+          
+          anim();
+		}
+        
+        
+     // shakeNeckForth(face, face_Joint_neck, 30, 1000);
+     var shakeHead = setInterval(function(){
+           shakeNeckForth(face, face_Joint_neck, 20, 1000);},500
+      )
+    clearInterval(shakeHead);
+     
+	});
+}
+</script>
+</body>
+>>>>>>> Stashed changes
 </html>

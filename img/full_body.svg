@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 <?xml version="1.0" encoding="utf-8"?>
 <!-- <svg version="1.1" viewBox="0 0 184 390.6" style="enable-background:new 0 0 184 390.6;" xml:space="preserve"> -->
 <svg >
 		<g id="full_body">
+=======
+
+<svg id="full_body" version="1.1" x="0px" y="0px" viewBox="0 0 184 390.6" style="enable-background:new 0 0 184 390.6;" xml:space="preserve">
+		<g id="fullBody">
+
+>>>>>>> Stashed changes
 			<g id="face">
 				<path class="bodypart" d="M90,0C39,0,21.7,18.7,15.1,48c-4.7,21.1,6.3,32.7,5.9,50.2c-0.4,20.1,5.3,38.3,12.5,51.8
 				c7.7,14.4,18.5,23.4,56.5,23.4v0.9c0,0,1.3,0,1.4,0s-1.4,0-1.4,0v-0.9c39,0,49.9-9,57.7-23.4c7.2-13.5,13.4-31.7,13-51.8
@@ -58,7 +65,7 @@
 						c5.8-26.8-3.1-33.8-3.1-43.8C134.8,232.8,151.2,206,151.2,186z"/>
 					<circle class="joint" cx="59.8" cy="294.3" r="15"/>
 				</g>
-				<circle id="joint_torso_right" class="joint" cx="122.9" cy="294.3" r="15"/>
+				<circle id="joint_torso_right" class="joint test" cx="122.9" cy="294.3" r="15"/>
 			</g>
 			<circle id="joint_torso_neck" class="joint" cx="91.8" cy="158.3" r="15"/>
 
