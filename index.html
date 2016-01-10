@@ -16,14 +16,14 @@
 			width: 100%;
 		}
 		svg{
-			border: solid black 1px;
+			background-color: #DEEAFA;
 		}
 	</style>
 </head>
 <body>
 <script type="text/javascript">
-var snapWidth = 1200;
-var snapHeight = 500;
+var snapWidth = window.innerWidth;
+var snapHeight = window.innerHeight;
 
 var s = Snap (snapWidth, snapHeight);
 //init
@@ -118,14 +118,7 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		changeColor(rightArm, _clothingColor);
 		changeColor(leftArm, _clothingColor);
 		changeColor(torso, _clothingColor);
-
-		hair.attr({fill: _hairColor});
-		//experiments
-		// animateRotation(rightArm, jointRightArm, -30, 1000);
-		// animateChangeColor(face, "#000000", 599);
-			// face.animate({transform: 'translateX(200)'}, 400);
-		// animateJump();
-		// move(500, 0, 500);
+		changeColor(hair, _hairColor);
 
 		function shake(part, joint, deg, duration){
 	        var dig = 0 - deg;
