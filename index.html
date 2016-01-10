@@ -2,7 +2,7 @@
 <html lang="eng">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title></title>
+	<title>Stories2Life</title>
 	<meta name="author" content="" />
 	<meta name="Resource-type" content="Document" />
 	<meta name="viewport" content="width=device-width">
@@ -14,22 +14,36 @@
 			margin: 0;
 			padding: 0;
 			width: 100%;
+            background-color: #DEEAFA;
 		}
 		svg{
+			margin-top:200px;
             background-color: #DEEAFA;
-			border: solid black 1px;
+			/*border: solid black 1px;*/
+		}
+		.shadow{
+			fill:rgba(0,0,0,0.1);
+		}
+		#logo{
+			width: 220px;
+			height: 80px;
+			margin-left:10px;
+			z-index: 99;
+
 		}
 	</style>
 </head>
 <body>
+<img src="img/logo.svg" id="logo"/>
 <script type="text/javascript">
-var snapWidth = 1200;
-var snapHeight = 500;
+var snapWidth = window.innerWidth;
+var snapHeight = window.innerHeight;
 
+var sample = function(){};
 
 var s = Snap (snapWidth, snapHeight);
 //init
-		generate("female", "#FFCC99", "#ff6868", "#785846", "#002746", null, null, false);
+		generate("female", "#FFCC99", "#ff6868", "#785846", "#ff6868", null, null, false);
         generateSecond("male", "#FFCC99", "#ff6868", "#785846", "#002746", null, null, true);
     
 function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _faceType, _bodyType, _accessories){
@@ -43,7 +57,7 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
 		var rightHand = f.select("#right_hand .bodypart");
 		var leftLeg = f.select("#left_leg .bodypart");
 		var rightLeg = f.select("#right_leg .bodypart");
-		var torso = f.select("#torso .bodypart");
+		var torso = f.select(".torso .man .bodypart");
 		var face = f.select("#face");
 
 		var bodypart = [leftArm, leftHand, rightArm, rightHand, leftLeg, rightLeg, torso, face];
@@ -71,6 +85,7 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
 		//Gender
 		if(_gender == "male"){
 			hair = f.select("#face .hair .basic");
+			f.select(".torso .woman .bodypart").attr({style:'display:none'});
 		}
 		else{
 			hair = f.select("#face .hair .woman");
@@ -225,23 +240,23 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
         }
         
         ///ANIMATION SCRIPT
-        var msg = new SpeechSynthesisUtterance('Hello! I am Jack!');
-        var speak = setInterval(function(){
-            moveMouth();},300
-        );
-         var shakeHead = setInterval(function(){
-	          shake(face, jointNeck, 20, 1000);},500
-	     );
+      //   var msg = new SpeechSynthesisUtterance('Hello! I am Jack!');
+      //   var speak = setInterval(function(){
+      //       moveMouth();},300
+      //   );
+      //    var shakeHead = setInterval(function(){
+	     //      shake(face, jointNeck, 20, 1000);},500
+	     // );
         
        
  
-        window.speechSynthesis.speak(msg);
+      //   window.speechSynthesis.speak(msg);
       
      
-         msg.onend = function(event) {
-                clearInterval(speak);
-                clearInterval(shakeHead);
-        };
+      //    msg.onend = function(event) {
+      //           clearInterval(speak);
+      //           clearInterval(shakeHead);
+      //   };
         
        walkForward();
        
@@ -265,7 +280,7 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		var rightHand = f.select("#right_hand .bodypart");
 		var leftLeg = f.select("#left_leg .bodypart");
 		var rightLeg = f.select("#right_leg .bodypart");
-		var torso = f.select("#torso .bodypart");
+		var torso = f.select(".torso .woman .bodypart");
 		var face = f.select("#face");
 
 		var bodypart = [leftArm, leftHand, rightArm, rightHand, leftLeg, rightLeg, torso, face];
@@ -297,6 +312,7 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		else{
 			hair = f.select("#face .hair .woman");
 			hair.attr({style: 'display:visible'});
+			f.select(".torso .man .bodypart").attr({style: 'display:none'});
 		}
 
 		//Accessories
@@ -424,7 +440,8 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
         var speak = setInterval(function(){
             moveMouth();},300
         );
-      clearInterval(speak)
+
+      	clearInterval(speak)
         
         function nervous(){
             animateChangeColor(face, 'pink',100);
@@ -447,45 +464,30 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
         
         
         ///ANIMATION SCRIPT  
-        
-        var msg = new SpeechSynthesisUtterance('Hey! I am Jill! How are you?');
-        var voices = window.speechSynthesis.getVoices();
-        msg.voice = voices[0];
-        msg.volume = 1;
-        var speak = setInterval(function(){
-            moveMouth();},300
-        );
-         var shakeHead = setInterval(function(){
-	          shake(face, jointNeck, 20, 1000);},500
-	     );
-        
-       
- 
-        window.speechSynthesis.speak(msg);
-      
-     
-         msg.onend = function(event) {
-                clearInterval(speak);
-                clearInterval(shakeHead);
-        };
-        
-        
-        
-      
-     
-     
-        
-        
 
-          
-   
-     
-     
-        
-        
-        ///ANIMATION SCRIPT
-        
-        
+	        sample = function(){
+	        	// console.log(test);
+		        var msg = new SpeechSynthesisUtterance('Hey! I am Jill! How are you?');
+		        var voices = window.speechSynthesis.getVoices();
+		        msg.voice = voices[0];
+		        msg.volume = 1;
+		        var speak = setInterval(function(){
+		            moveMouth();},300
+		        );
+		         var shakeHead = setInterval(function(){
+			          shake(face, jointNeck, 20, 1000);},500
+			     );
+		        
+		        window.speechSynthesis.speak(msg);
+		      
+		     
+		         msg.onend = function(event) {
+		                clearInterval(speak);
+		                clearInterval(shakeHead);
+		        };
+	        }
+
+			sample();
 		});
 }
 
