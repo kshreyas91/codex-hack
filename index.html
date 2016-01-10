@@ -133,7 +133,7 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
 		// move(500, 0, 500);
 
 		function shake(part, joint, deg, duration){
-	        var dig = 0 - deg;
+	        var dig = 0;
 	        var anim = function(){
 	           face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration,mina.linear,anim1);
 	    	}
@@ -225,7 +225,7 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
         }
         
         ///ANIMATION SCRIPT
-        var msg = new SpeechSynthesisUtterance('Hello! I am Shreyas!');
+        var msg = new SpeechSynthesisUtterance('Hello! I am Jack!');
         var speak = setInterval(function(){
             moveMouth();},300
         );
@@ -326,7 +326,7 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		function move(x, y, duration){
 			fullBody.animate({transform: 'translateX(' + x + ')'}, duration);
 		}
-     
+       move(700,3,100);
      
 		//Animation Complicated
 		function animateJump(){
@@ -346,7 +346,7 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		changeColor(leftArm, _clothingColor);
 		changeColor(torso, _clothingColor);
 
-		hair.attr({fill: _hairColor});
+		hair.attr({fill: 'black'});
 		//experiments
 		// animateRotation(rightArm, jointRightArm, -30, 1000);
 		// animateChangeColor(face, "#000000", 599);
@@ -355,7 +355,7 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		// move(500, 0, 500);
 
 		function shake(part, joint, deg, duration){
-	        var dig = 0 - deg;
+	        var dig = 0;
 	        var anim = function(){
 	           face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration,mina.linear,anim1);
 	    	}
@@ -446,8 +446,9 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
         }
         
         
-        ///ANIMATION SCRIPT     
-        var msg = new SpeechSynthesisUtterance('Hello! I am a female character!');
+        ///ANIMATION SCRIPT  
+        
+        var msg = new SpeechSynthesisUtterance('Hey! I am Jill! How are you?');
         var voices = window.speechSynthesis.getVoices();
         msg.voice = voices[0];
         msg.volume = 1;
@@ -458,6 +459,8 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 	          shake(face, jointNeck, 20, 1000);},500
 	     );
         
+       
+ 
         window.speechSynthesis.speak(msg);
       
      
@@ -467,11 +470,17 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
         };
         
         
-        var anim = function(){
-            fullBody.animate({transform:'translateX(700)'},1);
-        };
+        
+      
      
-        anim();
+     
+        
+        
+
+          
+   
+     
+     
         
         
         ///ANIMATION SCRIPT
