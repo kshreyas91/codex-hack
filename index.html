@@ -16,25 +16,27 @@
 			width: 100%;
 		}
 		svg{
-			background-color: #DEEAFA;
+            background-color: #DEEAFA;
+			border: solid black 1px;
 		}
 	</style>
 </head>
 <body>
 <script type="text/javascript">
-var snapWidth = window.innerWidth;
-var snapHeight = window.innerHeight;
+var snapWidth = 1200;
+var snapHeight = 500;
+
 
 var s = Snap (snapWidth, snapHeight);
 //init
-		generate("female", "#FFCC99", "#ff6868", "#785846", "#002746", null, null, true);
-
-function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _faceType, _bodyType, _accessories){
-	console.log(_accessories);
-	Snap.load("img/full_body.svg", function(f){
+		generate("female", "#FFCC99", "#ff6868", "#785846", "#002746", null, null, false);
+        generateSecond("male", "#FFCC99", "#ff6868", "#785846", "#002746", null, null, true);
+    
+function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _faceType, _bodyType, _accessories){
+    Snap.load("img/full_body.svg", function(f){
 
 		var fullBody = f.select("#full_body");
-
+        
 		var leftArm = f.select("#left_arm");
 		var leftHand = f.select("#left_hand .bodypart");
 		var rightArm = f.select("#right_arm");
@@ -79,9 +81,11 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		if(_accessories){
 			moustache.attr({style: 'display:visible', fill: "#000000"});
 		}
-
+       
 		s.append(f.select("g"));
-
+        
+       
+        
 		//Basic Functions
 		function changeColor(part, color){
 			part.attr({fill: color});
@@ -100,6 +104,7 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		function move(x, y, duration){
 			fullBody.animate({transform: 'translateX(' + x + ')'}, duration);
 		}
+     
 
 		//Animation Complicated
 		function animateJump(){
@@ -118,7 +123,14 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
 		changeColor(rightArm, _clothingColor);
 		changeColor(leftArm, _clothingColor);
 		changeColor(torso, _clothingColor);
-		changeColor(hair, _hairColor);
+
+		hair.attr({fill: _hairColor});
+		//experiments
+		// animateRotation(rightArm, jointRightArm, -30, 1000);
+		// animateChangeColor(face, "#000000", 599);
+			// face.animate({transform: 'translateX(200)'}, 400);
+		// animateJump();
+		// move(500, 0, 500);
 
 		function shake(part, joint, deg, duration){
 	        var dig = 0 - deg;
@@ -146,18 +158,325 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
              var walk = setInterval(function(){
                  moveLegs(10,500);},300
            )
-           fullBody.animate({transform: 'translateX(900)'},10000);
+           fullBody.animate({transform: 'translateX(' + (snapWidth/2 - 200) + ')'},10000);
     	}
-  		walkForward();
+        
+       
+        function walkBack(x){
+            var walk = setInterval(function(){
+                 moveLegs(10,500);},300
+           )
+                 fullBody.animate({transform: 'translateX(' + x + ')'},10000);
+        }
+        
+  		//walkForward();
        
        
-	    // shakeNeckForth(face, face_Joint_neck, 30, 1000);
+	  
 	   //set interval keeps it shaking indefinitely 
+        
 	    var shakeHead = setInterval(function(){
 	          shake(face, jointNeck, 20, 1000);},500
-	     )
+	     );
+        
 	    //This line with clear interval stops shaking
-	  // clearInterval(shakeHead);
+	   clearInterval(shakeHead);
+        function moveMouth(){
+            var anim = function(){
+                 upperlips.animate({transform:'translateY(14)'},200,mina.linear,anim1);
+            }
+            var anim1 = function(){
+                 lowerlips.animate({transform:'translateY(14)'},200,mina.linear,anim2);
+            }
+            var anim2 = function(){
+                upperlips.animate({transform:'translateY(-14)'},200,mina.linear,anim3);
+            }
+            var anim3 = function(){
+                lowerlips.animate({transform:'translateY(-14)'},200);
+            }
+            anim();
+           
+            
+            
+        }
+        /*
+        var speak = setInterval(function(){
+            moveMouth();},300
+        );
+      clearInterval(speak)
+        */
+        function nervous(){
+            animateChangeColor(face, 'pink',100);
+        }
+        
+        
+       
+        
+        function anger(){
+            animateChangeColor(face,'red',1000);
+        }
+        
+        function unEmotion(_skinColor){
+            animateChangeColor(face,_skinColor);
+        }
+        
+        function smile(){
+          //  upperlips.animate({transform:})
+        }
+        
+        ///ANIMATION SCRIPT
+        var msg = new SpeechSynthesisUtterance('Hello! I am Shreyas!');
+        var speak = setInterval(function(){
+            moveMouth();},300
+        );
+         var shakeHead = setInterval(function(){
+	          shake(face, jointNeck, 20, 1000);},500
+	     );
+        
+       
+ 
+        window.speechSynthesis.speak(msg);
+      
+     
+         msg.onend = function(event) {
+                clearInterval(speak);
+                clearInterval(shakeHead);
+        };
+        
+       walkForward();
+       
+        
+        //
+         
+        ///ANIMATION SCRIPT
+		});
+}    
+    
+
+function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _faceType, _bodyType, _accessories){
+	console.log(_accessories);
+	Snap.load("img/full_body.svg", function(f){
+
+		var fullBody = f.select("#full_body");
+        
+		var leftArm = f.select("#left_arm");
+		var leftHand = f.select("#left_hand .bodypart");
+		var rightArm = f.select("#right_arm");
+		var rightHand = f.select("#right_hand .bodypart");
+		var leftLeg = f.select("#left_leg .bodypart");
+		var rightLeg = f.select("#right_leg .bodypart");
+		var torso = f.select("#torso .bodypart");
+		var face = f.select("#face");
+
+		var bodypart = [leftArm, leftHand, rightArm, rightHand, leftLeg, rightLeg, torso, face];
+
+		var lips = f.select("#face .lips");
+		var upperlips = f.select("#face .lips .upper");
+		var lowerlips = f.select("#face .lips .lower");
+		var hair;
+		var moustache = f.select("#face .feature .moustache");
+		var faceSkin = f.select("#face .bodypart");
+		var eyes = f.select("#face .eyes");
+
+		var jointNeck = f.select("#joint_torso_neck");
+		var jointLeftArm = f.select("#joint_left_arm");
+		var jointLeftHand = f.select("#joint_left_hand");
+		var jointRightArm = f.select("#joint_right_arm");
+		var jointRightHand = f.select("#joint_right_hand");
+		var jointLeftLeg = f.select("#joint_left_leg");
+		var jointRightLeg = f.select("#joint_right_leg");
+		
+		var joint = [jointNeck, jointLeftArm, jointLeftHand,
+		jointRightArm, jointRightHand, jointLeftLeg, jointRightLeg];
+
+
+		//Gender
+		if(_gender == "male"){
+			hair = f.select("#face .hair .basic");
+		}
+		else{
+			hair = f.select("#face .hair .woman");
+			hair.attr({style: 'display:visible'});
+		}
+
+		//Accessories
+		if(_accessories){
+			moustache.attr({style: 'display:visible', fill: "#000000"});
+		}
+   
+		s.append(f.select("g"));
+        
+       
+        
+		//Basic Functions
+		function changeColor(part, color){
+			part.attr({fill: color});
+		}
+
+		//Animation Basics
+		function animateRotation(part, joint, deg, duration, ease, linkanim){
+			// part.animate({transform: 'rotate(deg cx cy)'}, duration);
+			part.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration);
+		}
+
+		function animateChangeColor(part, color, duration){
+			part.animate({fill: color}, duration);
+		}
+
+		function move(x, y, duration){
+			fullBody.animate({transform: 'translateX(' + x + ')'}, duration);
+		}
+     
+     
+		//Animation Complicated
+		function animateJump(){
+			animateRotation(rightLeg, jointRightLeg, -30, 400);
+			animateRotation(leftLeg, jointLeftLeg, 15, 400);
+		}
+
+		//apply initial options when generated
+		for(i = 0; i < bodypart.length; i++){
+			changeColor(bodypart[i], _skinColor);
+		}
+		changeColor(lips, _lipsColor);
+		changeColor(upperlips, _lipsColor);
+		changeColor(lowerlips, _lipsColor);
+		changeColor(eyes, "#000000");
+		changeColor(rightArm, _clothingColor);
+		changeColor(leftArm, _clothingColor);
+		changeColor(torso, _clothingColor);
+
+		hair.attr({fill: _hairColor});
+		//experiments
+		// animateRotation(rightArm, jointRightArm, -30, 1000);
+		// animateChangeColor(face, "#000000", 599);
+			// face.animate({transform: 'translateX(200)'}, 400);
+		// animateJump();
+		// move(500, 0, 500);
+
+		function shake(part, joint, deg, duration){
+	        var dig = 0 - deg;
+	        var anim = function(){
+	           face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration,mina.linear,anim1);
+	    	}
+	        var anim1 = function(){  face.animate({transform: 'rotate(' + dig + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration); }
+	        anim();
+    	}
+
+    	function moveLegs(deg, duration){
+	        var dig = 6 - deg;
+	        var anim = function(){
+	           rightLeg.animate({transform: 'rotate(' + (deg-6) + ' ' + jointRightLeg.attr("cx") + ' ' + jointRightLeg.attr("cy") + ')'}, duration,mina.linear,anim1);} 
+	        var anim1 = function(){  rightLeg.animate({transform: 'rotate(' + dig + ' ' + jointRightLeg.attr("cx") + ' ' + jointRightLeg.attr("cy") + ')'}, duration,mina.linear,anim2); }
+	        var anim2 = function(){
+	           leftLeg.animate({transform: 'rotate(' + deg + ' ' + jointLeftLeg.attr("cx") + ' ' + jointLeftLeg.attr("cy") + ')'}, duration,mina.linear,anim3); }
+	       	var anim3 = function(){  leftLeg.animate({transform: 'rotate(' + dig + ' ' + jointLeftLeg.attr("cx") + ' ' + jointLeftLeg.attr("cy") + ')'}, duration); }
+
+	        anim();
+    	}
+       
+    	function walkForward(){
+             //shake(right_leg,joint_right_leg,10,100);
+             var walk = setInterval(function(){
+                 moveLegs(10,500);},300
+           )
+           fullBody.animate({transform: 'translateX(' + snapWidth/2 + ')'},10000);
+    	}
+        
+       
+        function walkBack(x){
+            var walk = setInterval(function(){
+                 moveLegs(10,500);},300
+           )
+                 fullBody.animate({transform: 'translateX(' + x + ')'},10000);
+        }
+        
+  		//walkForward();
+       
+       
+	  
+	   //set interval keeps it shaking indefinitely 
+        
+	    var shakeHead = setInterval(function(){
+	          shake(face, jointNeck, 20, 1000);},500
+	     );
+        
+	    //This line with clear interval stops shaking
+	   clearInterval(shakeHead);
+        function moveMouth(){
+            var anim = function(){
+                 upperlips.animate({transform:'translateY(6)'},200,mina.linear,anim1);
+            }
+            var anim1 = function(){
+                 lowerlips.animate({transform:'translateY(6)'},200,mina.linear,anim2);
+            }
+            var anim2 = function(){
+                upperlips.animate({transform:'translateY(-6)'},200,mina.linear,anim3);
+            }
+            var anim3 = function(){
+                lowerlips.animate({transform:'translateY(-6)'},200);
+            }
+            anim();
+           
+            
+            
+        }
+        var speak = setInterval(function(){
+            moveMouth();},300
+        );
+      clearInterval(speak)
+        
+        function nervous(){
+            animateChangeColor(face, 'pink',100);
+        }
+        
+        
+       
+        
+        function anger(){
+            animatechangeColor(face,'red',100);
+        }
+        
+        function unEmotion(_skinColor){
+            animateChangeColor(face,_skinColor);
+        }
+        
+        function smile(){
+          //  upperlips.animate({transform:})
+        }
+        
+        
+        ///ANIMATION SCRIPT     
+        var msg = new SpeechSynthesisUtterance('Hello! I am a female character!');
+        var voices = window.speechSynthesis.getVoices();
+        msg.voice = voices[0];
+        msg.volume = 1;
+        var speak = setInterval(function(){
+            moveMouth();},300
+        );
+         var shakeHead = setInterval(function(){
+	          shake(face, jointNeck, 20, 1000);},500
+	     );
+        
+        window.speechSynthesis.speak(msg);
+      
+     
+         msg.onend = function(event) {
+                clearInterval(speak);
+                clearInterval(shakeHead);
+        };
+        
+        
+        var anim = function(){
+            fullBody.animate({transform:'translateX(700)'},1);
+        };
+     
+        anim();
+        
+        
+        ///ANIMATION SCRIPT
+        
+        
 		});
 }
 
