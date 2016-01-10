@@ -22,18 +22,15 @@
 </head>
 <body>
 <script type="text/javascript">
+var snapWidth = 1200;
+var snapHeight = 500;
 
-var s = Snap (1200, 500);
+var s = Snap (snapWidth, snapHeight);
+//init
+		generate("female", "#FFCC99", "#ff6868", "#785846", "#002746", null, null, true);
 
-function generate(initSkinColor, initFaceType, initBodyType, initAccessories){
-
-	var options = {
-		skinColor: initSkinColor, //#FAE7DO, #FFCC99, #C18E74, #AA724B, #573719
-		faceType: initFaceType, 
-		bodyType: initBodyType,
-		accessories: initAccessories
-	};
-
+function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _faceType, _bodyType, _accessories){
+	console.log(_accessories);
 	Snap.load("img/full_body.svg", function(f){
 
 		var fullBody = f.select("#full_body");
@@ -45,9 +42,17 @@ function generate(initSkinColor, initFaceType, initBodyType, initAccessories){
 		var leftLeg = f.select("#left_leg .bodypart");
 		var rightLeg = f.select("#right_leg .bodypart");
 		var torso = f.select("#torso .bodypart");
-		var face = f.select("#face .bodypart");
+		var face = f.select("#face");
 
 		var bodypart = [leftArm, leftHand, rightArm, rightHand, leftLeg, rightLeg, torso, face];
+
+		var lips = f.select("#face .lips");
+		var upperlips = f.select("#face .lips .upper");
+		var lowerlips = f.select("#face .lips .lower");
+		var hair;
+		var moustache = f.select("#face .feature .moustache");
+		var faceSkin = f.select("#face .bodypart");
+		var eyes = f.select("#face .eyes");
 
 		var jointNeck = f.select("#joint_torso_neck");
 		var jointLeftArm = f.select("#joint_left_arm");
@@ -59,6 +64,21 @@ function generate(initSkinColor, initFaceType, initBodyType, initAccessories){
 		
 		var joint = [jointNeck, jointLeftArm, jointLeftHand,
 		jointRightArm, jointRightHand, jointLeftLeg, jointRightLeg];
+
+
+		//Gender
+		if(_gender == "male"){
+			hair = f.select("#face .hair .basic");
+		}
+		else{
+			hair = f.select("#face .hair .woman");
+			hair.attr({style: 'display:visible'});
+		}
+
+		//Accessories
+		if(_accessories){
+			moustache.attr({style: 'display:visible', fill: "#000000"});
+		}
 
 		s.append(f.select("g"));
 
@@ -89,9 +109,17 @@ function generate(initSkinColor, initFaceType, initBodyType, initAccessories){
 
 		//apply initial options when generated
 		for(i = 0; i < bodypart.length; i++){
-			changeColor(bodypart[i], options.skinColor);
+			changeColor(bodypart[i], _skinColor);
 		}
+		changeColor(lips, _lipsColor);
+		changeColor(upperlips, _lipsColor);
+		changeColor(lowerlips, _lipsColor);
+		changeColor(eyes, "#000000");
+		changeColor(rightArm, _clothingColor);
+		changeColor(leftArm, _clothingColor);
+		changeColor(torso, _clothingColor);
 
+		hair.attr({fill: _hairColor});
 		//experiments
 		// animateRotation(rightArm, jointRightArm, -30, 1000);
 		// animateChangeColor(face, "#000000", 599);
@@ -99,16 +127,13 @@ function generate(initSkinColor, initFaceType, initBodyType, initAccessories){
 		// animateJump();
 		// move(500, 0, 500);
 
-		changeColor(rightArm, "blue");
-		changeColor(leftArm, "blue");
-		changeColor(torso, "blue");
-
 		function shake(part, joint, deg, duration){
 	        var dig = 0 - deg;
 	        var anim = function(){
 	           face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration,mina.linear,anim1);
 	    	}
 	        var anim1 = function(){  face.animate({transform: 'rotate(' + dig + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration); }
+	        anim();
     	}
 
     	function moveLegs(deg, duration){
@@ -143,8 +168,6 @@ function generate(initSkinColor, initFaceType, initBodyType, initAccessories){
 		});
 }
 
-//init
-generate("#FFCC99");
 
 /*
 #002746 blue
@@ -159,6 +182,10 @@ generate("#FFCC99");
 #565757 darkgray
 #d1d0cc gray
 #e2e5ea lightgray
+
+#362124 darkbrown
+#785846 brown
+#785846 brown
 */
 
 </script>
