@@ -1,23 +1,10 @@
-<<<<<<< Updated upstream
-<?xml version="1.0" encoding="utf-8"?>
-<!-- <svg version="1.1" viewBox="0 0 184 390.6" style="enable-background:new 0 0 184 390.6;" xml:space="preserve"> -->
 <svg >
 		<g id="full_body">
-<<<<<<< HEAD
-=======
-=======
-
-<svg id="full_body" version="1.1" x="0px" y="0px" viewBox="0 0 184 390.6" style="enable-background:new 0 0 184 390.6;" xml:space="preserve">
-		<g id="fullBody">
-
->>>>>>> Stashed changes
 			<g id="face">
 				<path class="bodypart" d="M90,0C39,0,21.7,18.7,15.1,48c-4.7,21.1,6.3,32.7,5.9,50.2c-0.4,20.1,5.3,38.3,12.5,51.8
 				c7.7,14.4,18.5,23.4,56.5,23.4v0.9c0,0,1.3,0,1.4,0s-1.4,0-1.4,0v-0.9c39,0,49.9-9,57.7-23.4c7.2-13.5,13.4-31.7,13-51.8
 				c-0.3-17.5,10.3-29.1,5.6-50.2C159.7,18.7,141,0,90,0z"/>
 			</g>
-
->>>>>>> 5873ea8224d39662d83279e90cd085907fefc2b4
 			<g id="left_arm" class="group_arm left">
 				<path class="bodypart arm left" d="M61.4,189.7L61.4,189.7c0.2-1.1,0.4-2.2,0.4-3.4c0-8.3-6.7-15-15-15c-4.6,0-8.7,2.1-11.5,5.3
 					l0,0c-5.4,5.4-17.4,37.6-20.3,42.9c-2.6,4.7-2.7,9.9-2.7,12.9c2,14,0.8,37.8,0.8,37.8c0,3.7,3,6.7,6.7,6.7c3.7,0,6.7-3,6.7-6.7
@@ -53,10 +40,6 @@
 						c-0.8-0.4-0.5-2.1-0.4-2.5c0,0-0.2-0.2-0.7-1.5c-0.8-2-0.5-10.1-0.5-10.1c1.6-5.1,1.9-4.5,0.4-9.1
 						C156.6,272.6,156.4,272.1,156.4,271.7z"/>
 				</g>
-<<<<<<< HEAD
-=======
-				<circle id="joint_torso_right" class="joint test" cx="122.9" cy="294.3" r="15"/>
->>>>>>> 5873ea8224d39662d83279e90cd085907fefc2b4
 			</g>
 
 			<g id="left_leg" class="group_leg left">
