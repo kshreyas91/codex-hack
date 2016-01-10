@@ -7,64 +7,160 @@
 	<meta name="Resource-type" content="Document" />
 	<meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-
-
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
     <script src="js/snap.svg.js"></script>
 	<style type="text/css">
-	body, html{
-		margin: 50px;
-		padding: 0;
-		width: 100%;
-	}
-
-/*	.bodypart{
-		fill:rgba(100,100,100,0.5);
-	}*/
-	.joint{
-		fill:rgba(255,0,0,0.5);
-	}
-	.test{
-		fill:blue;
-	}
-	svg{
-		border: solid black 1px;
-		position: absolute;
-		/*left: 50%;*/
-	}
+		body, html{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+		svg{
+			border: solid black 1px;
+		}
 	</style>
 </head>
 <body>
-
 <script type="text/javascript">
 
-window.onload = function(){
+var s = Snap (1000, 1000);
 
-	var s = Snap (1000, 1000);
+function generate(initSkinColor, initFaceType, initBodyType, initAccessories){
+
+	var options = {
+		skinColor: initSkinColor, //#FAE7DO, #FFCC99, #C18E74, #AA724B, #573719
+		faceType: initFaceType, 
+		bodyType: initBodyType,
+		accessories: initAccessories
+	};
 
 	Snap.load("img/full_body.svg", function(f){
+
+		var fullBody = f.select("#full_body");
+
+		var leftArm = f.select("#left_arm");
+		var leftHand = f.select("#left_hand .bodypart");
+		var rightArm = f.select("#right_arm");
+		var rightHand = f.select("#right_hand .bodypart");
+		var leftLeg = f.select("#left_leg .bodypart");
+		var rightLeg = f.select("#right_leg .bodypart");
+		var torso = f.select("#torso .bodypart");
 		var face = f.select("#face .bodypart");
-		var face_Joint_neck = f.select("#joint_torso_neck");
-		face.attr({fill: '#00ff00'});
 
+		var bodypart = [leftArm, leftHand, rightArm, rightHand, leftLeg, rightLeg, torso, face];
 
-		// leftarm.animate({transform: 'rotate(30 46.8 186.3)'}, 500);
-
-		// face.animate({transform: 'rotate(30' + ' ' + face_Joint_neck.attr("cx") + ' ' + face_Joint_neck.attr("cy") + ')'}, 1000);
+		var jointNeck = f.select("#joint_torso_neck");
+		var jointLeftArm = f.select("#joint_left_arm");
+		var jointLeftHand = f.select("#joint_left_hand");
+		var jointRightArm = f.select("#joint_right_arm");
+		var jointRightHand = f.select("#joint_right_hand");
+		var jointLeftLeg = f.select("#joint_left_leg");
+		var jointRightLeg = f.select("#joint_right_leg");
+		
+		var joint = [jointNeck, jointLeftArm, jointLeftHand,
+		jointRightArm, jointRightHand, jointLeftLeg, jointRightLeg];
 
 		s.append(f.select("g"));
 
-
-
-
-		function shakeNeck(part, joint, deg, duration){
-			face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration);
+		//Basic Functions
+		function changeColor(part, color){
+			part.attr({fill: color});
 		}
 
-		shakeNeck(face, face_Joint_neck, 30, 1000);
-	});
+		//Animation Basics
+		function animateRotation(part, joint, deg, duration, ease, linkanim){
+			// part.animate({transform: 'rotate(deg cx cy)'}, duration);
+			part.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration);
+		}
+
+		function animateChangeColor(part, color, duration){
+			part.animate({fill: color}, duration);
+		}
+
+		function move(x, y, duration){
+			fullBody.animate({transform: 'translateX(' + x + ')'}, duration);
+		}
+
+		//Animation Complicated
+		function animateJump(){
+			animateRotation(rightLeg, jointRightLeg, -30, 400);
+			animateRotation(leftLeg, jointLeftLeg, 15, 400);
+		}
+
+		//apply initial options when generated
+		for(i = 0; i < bodypart.length; i++){
+			changeColor(bodypart[i], options.skinColor);
+		}
+
+		//experiments
+		// animateRotation(rightArm, jointRightArm, -30, 1000);
+		// animateChangeColor(face, "#000000", 599);
+			// face.animate({transform: 'translateX(200)'}, 400);
+		// animateJump();
+		// move(500, 0, 500);
+
+		changeColor(rightArm, "blue");
+		changeColor(leftArm, "blue");
+		changeColor(torso, "blue");
+
+		function shake(part, joint, deg, duration){
+	        var dig = 0 - deg;
+	        var anim = function(){
+	           face.animate({transform: 'rotate(' + deg + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration,mina.linear,anim1);
+	    	}
+	        var anim1 = function(){  face.animate({transform: 'rotate(' + dig + ' ' + joint.attr("cx") + ' ' + joint.attr("cy") + ')'}, duration); }
+    	}
+
+    	function moveLegs(deg, duration){
+	        var dig = 6 - deg;
+	        var anim = function(){
+	           rightLeg.animate({transform: 'rotate(' + (deg-6) + ' ' + jointRightLeg.attr("cx") + ' ' + jointRightLeg.attr("cy") + ')'}, duration,mina.linear,anim1);} 
+	        var anim1 = function(){  rightLeg.animate({transform: 'rotate(' + dig + ' ' + jointRightLeg.attr("cx") + ' ' + jointRightLeg.attr("cy") + ')'}, duration,mina.linear,anim2); }
+	        var anim2 = function(){
+	           leftLeg.animate({transform: 'rotate(' + deg + ' ' + jointLeftLeg.attr("cx") + ' ' + jointLeftLeg.attr("cy") + ')'}, duration,mina.linear,anim3); }
+	       	var anim3 = function(){  leftLeg.animate({transform: 'rotate(' + dig + ' ' + jointLeftLeg.attr("cx") + ' ' + jointLeftLeg.attr("cy") + ')'}, duration); }
+
+	        anim();
+    	}
+       
+    	function walkForward(){
+             //shake(right_leg,joint_right_leg,10,100);
+             var walk = setInterval(function(){
+                 moveLegs(10,500);},300
+           )
+           fullBody.animate({transform: 'translateX(900)'},10000);
+    	}
+  		walkForward();
+       
+       
+	    // shakeNeckForth(face, face_Joint_neck, 30, 1000);
+	   //set interval keeps it shaking indefinitely 
+	    var shakeHead = setInterval(function(){
+	          shake(face, jointNeck, 20, 1000);},500
+	     )
+	    //This line with clear interval stops shaking
+	  // clearInterval(shakeHead);
+		});
 }
+
+//init
+generate("#FFCC99");
+
+/*
+#002746 blue
+#42a8ff lightblue
+
+#62b482 lightgreen
+#0d6e65 green
+
+#facc3b yellow
+#ff6868 pink
+
+#565757 darkgray
+#d1d0cc gray
+#e2e5ea lightgray
+*/
+
 </script>
 </body>
 </html>
