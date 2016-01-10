@@ -44,7 +44,7 @@ var sample = function(){};
 var s = Snap (snapWidth, snapHeight);
 //init
 		generate("female", "#FFCC99", "#ff6868", "#785846", "#ff6868", null, null, false);
-        generateSecond("male", "#FFCC99", "#ff6868", "#785846", "#002746", null, null, true);
+        generateSecond("male", "#785846", "#f08d7d", "#362124", "#002746", null, null, true);
     
 function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _faceType, _bodyType, _accessories){
     Snap.load("img/full_body.svg", function(f){
@@ -240,7 +240,6 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
         }
         
         ///ANIMATION SCRIPT
-<<<<<<< HEAD
       //   var msg = new SpeechSynthesisUtterance('Hello! I am Jack!');
       //   var speak = setInterval(function(){
       //       moveMouth();},300
@@ -248,7 +247,6 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
       //    var shakeHead = setInterval(function(){
 	     //      shake(face, jointNeck, 20, 1000);},500
 	     // );
-=======
         var msg = new SpeechSynthesisUtterance('Did you hear about the CODEX hackathon happening at Cambridge ?');
         var speak = setInterval(function(){
             moveMouth();},300
@@ -256,8 +254,6 @@ function generateSecond(_gender, _skinColor, _lipsColor, _hairColor, _clothingCo
          var shakeHead = setInterval(function(){
 	          shake(face, jointNeck, 20, 1000);},500
 	     );
->>>>>>> e072d5e389b3924aa7ab03950b7f16f4d334f566
-        
        
  
       //   window.speechSynthesis.speak(msg);
@@ -471,60 +467,8 @@ function generate(_gender, _skinColor, _lipsColor, _hairColor, _clothingColor, _
         function smile(){
           //  upperlips.animate({transform:})
         }
-        
-        
-        ///ANIMATION SCRIPT  
-<<<<<<< HEAD
-=======
-        
-        var msg = new SpeechSynthesisUtterance('Yes! I did. I heard there are some cool hacks being developed there');
-        var voices = window.speechSynthesis.getVoices();
-        msg.voice = voices[0];
-        msg.volume = 1;
-        var speak = setInterval(function(){
-            moveMouth();},300
-        );
-         var shakeHead = setInterval(function(){
-	          shake(face, jointNeck, 20, 1000);},500
-	     );
-        
-       
- 
-        window.speechSynthesis.speak(msg);
-      
-     
-         msg.onend = function(event) {
-                clearInterval(speak);
-                clearInterval(shakeHead);
-        };
-        
-        msg = new SpeechSynthesisUtterance("");
-         var voices = window.speechSynthesis.getVoices();
-        msg.voice = voices[0];
-        msg.volume = 1;
-        var speak = setInterval(function(){
-            moveMouth();},300
-        );
-         var shakeHead = setInterval(function(){
-	          shake(face, jointNeck, 20, 1000);},500
-	     );
-        
-           window.speechSynthesis.speak(msg);
-      
-     
-         msg.onend = function(event) {
-                clearInterval(speak);
-                clearInterval(shakeHead);
-        };
-      
-     
-     
-        
-        
->>>>>>> e072d5e389b3924aa7ab03950b7f16f4d334f566
 
 	        sample = function(){
-	        	// console.log(test);
 		        var msg = new SpeechSynthesisUtterance('Hey! I am Jill! How are you?');
 		        var voices = window.speechSynthesis.getVoices();
 		        msg.voice = voices[0];
